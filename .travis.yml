@@ -3,6 +3,6 @@ python:
   - "3.6"
 services:
   - docker
-before_script: pip3 install doctor-compose
+before_script: pip install doctor-compose
 script:
   - docker-compose run app sh -c "python manage.py test && flake8"
