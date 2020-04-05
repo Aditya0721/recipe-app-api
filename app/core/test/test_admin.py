@@ -30,7 +30,7 @@ class AdminSiteTests(TestCase):
         """Test that user edit page works"""
         url = reverse('admin:core_user_change', args=[self.user.id])
         # /admin/core/user/1
-        res = self.client.get(url) # http get on the url
+        res = self.client.get(url)  # http get on the url
 
         self.assertEqual(res.status_code, 200)
         # the status code 200 means http page worked
