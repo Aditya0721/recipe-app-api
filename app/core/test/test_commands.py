@@ -1,7 +1,8 @@
-from unittest.mock import patch # mock the behaviour of django.getDatabse function
+from unittest.mock import patch   # mock the behaviour of
+# django.getDatabse function
 
-from  django.core.management import call_command # call commabd in source code
-from django.db.utils import OperationalError # simulate error
+from django.core.management import call_command  # call commabd in source code
+from django.db.utils import OperationalError  # simulate error
 from django.test import TestCase
 
 
@@ -10,12 +11,13 @@ class CommandTests(TestCase):
         """Test waiting for db when db is available"""
         with patch('django.db.utils.ConnectionHandler.__getitem__') as gi:
             gi.return_value = True
-        # gi is a mock object for __getitem__ function with \
-        #    return value always True means the database is available
-            call_command('wait_for_db') #  name of the management command that we create
+        # gi is a mock object for __getitem__ function with
+        # return value always True means the database is available
+            call_command('wait_for_db')  # name of the management command
+        # that we create
             self.assertEqual(gi.call_count, 1)
 
-    @patch('time.sleep',return_value=True) # time.sleep only returns true
+    @patch('time.sleep', return_value=True)   # time.sleep only returns true
     def test_wait_for_db(self, ts):
         """Test waiting for db"""
         with patch('django.db.utils.ConnectionHandler.__getitem__') as gi:
