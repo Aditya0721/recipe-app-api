@@ -19,6 +19,17 @@ class UserSerializer(serializers.ModelSerializer):
         #  valid_data is the json data passsed into
         #  overriding create function present in ModelSerializer class
 
+    def update(self, instance, validated_data):
+        """update a user, setting the password correctly and return it"""
+        password = validated_data.pop('password', None)  # removes from
+        # the dictionary
+        user = super().update(instance, validated_data)
+
+        if password:
+            user.set_password(password)
+            user.save()
+        return user
+
 
 class AuthTokenSerializer(serializers.Serializer):
     """create a authentication token object"""
