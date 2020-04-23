@@ -43,7 +43,7 @@ class Tag(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-    )
+    )  # foreign key of the user model
 
     def __str__(self):
         return self.name
