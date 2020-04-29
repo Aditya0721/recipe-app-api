@@ -76,7 +76,7 @@ class PublicUserApiTests(TestCase):  # unauthenticated users
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_token_no_user(self):
-        """test no toke is created for non existing users"""
+        """test no token is created for non existing users"""
         payload = {'email': "test@gmail.com", 'password': 'wrong'}
         res = self.client.post(TOKEN_URL, payload)
 

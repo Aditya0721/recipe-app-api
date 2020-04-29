@@ -37,3 +37,20 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'ingredients', 'tags', 'time_minutes',
                   'price', 'link')
         read_only_fields = ('id',)
+
+    def validate(self, attrs):
+        request = self.context.get('request')
+        title_exists = Recipe.objects.filter(
+            user=request.user,
+            title=attrs.get('title')
+        ).exists()
+        if title_exists:
+            raise serializers.ValidationError("title is alreay taken")
+        attrs['user'] = request.user
+        return attrs
+
+
+class RecipeDetailSerializer(RecipeSerializer):
+    """serialize a Recipe detail"""
+    ingredients = IngredientSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
